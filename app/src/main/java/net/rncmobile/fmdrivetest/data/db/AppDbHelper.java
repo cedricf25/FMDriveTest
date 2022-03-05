@@ -19,16 +19,21 @@ import android.util.Log;
 import android.widget.Toast;
 
 import net.rncmobile.fmdrivetest.data.db.model.CellRecorder;
+import net.rncmobile.fmdrivetest.data.db.model.CellRecorderDao;
 import net.rncmobile.fmdrivetest.data.db.model.DaoMaster;
 import net.rncmobile.fmdrivetest.data.db.model.DaoSession;
 import net.rncmobile.fmdrivetest.utils.AppConstants;
 
 import org.greenrobot.greendao.DaoException;
+import org.greenrobot.greendao.query.QueryBuilder;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import io.reactivex.rxjava3.core.Observable;
 
 
 /**
@@ -52,6 +57,14 @@ public class AppDbHelper implements DbHelper {
     @Override
     public long addCellRecorder(CellRecorder cellRecorder) {
         return mDaoSession.getCellRecorderDao().insert(cellRecorder);
+    }
+
+    @Override
+    public Observable<Long> getNbCellRecorder() {
+        return Observable.fromCallable((Callable<Long>) () -> {
+            QueryBuilder<CellRecorder> qb = mDaoSession.getCellRecorderDao().queryBuilder();
+            return qb.count();
+        });
     }
 
 }

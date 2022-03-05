@@ -66,21 +66,19 @@ public class AppCellRecorderManager implements CellRecorderManager, FusedLocatio
 
     @Override
     public void startCellRecorder() {
-        if (!AppConstants.cellRecorder) {
-            AppConstants.cellRecorder = true;
-            fusedLocationListener = new FusedLocationListener(context, 8, 8000);
+        fusedLocationListener = new FusedLocationListener(context, 8, 8000);
 
-            if (fusedLocationListener.isGpsEnabled()) {
-                fusedLocationListener.setListener(this);
-                fusedLocationListener.startGps();
-                enabled = true;
+        if (fusedLocationListener.isGpsEnabled()) {
+            fusedLocationListener.setListener(this);
+            fusedLocationListener.startGps();
+            enabled = true;
 
-                radioManager.refreshCellChangeObservers();
+            radioManager.refreshCellChangeObservers();
 
-            } else enabled = false;
+        } else enabled = false;
 
-            crStatusSubject.onNext(enabled);
-        }
+        crStatusSubject.onNext(enabled);
+
     }
 
     @Override
@@ -110,7 +108,7 @@ public class AppCellRecorderManager implements CellRecorderManager, FusedLocatio
             }
 
             if (enabled && radioManager.getCurrentCell() != null && radioManager.getCurrentCell().isAuthorizedNetwork() && location.getAccuracy() < 50.0) {
-                CellRecorder cellRecorder = new CellRecorder(radioManager.getCurrentCell(), location.getLatitude(), location.getLongitude(),
+                CellRecorder cellRecorder = new CellRecorder(context, radioManager.getCurrentCell(), location.getLatitude(), location.getLongitude(),
                         location.getAltitude(), location.getAccuracy(), location.getSpeed(), batLevelPercent);
 
                 dataManager.addCellRecorder(cellRecorder);

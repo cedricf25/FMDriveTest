@@ -90,6 +90,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.mainActivityTitle);
+
+        mPresenter.registerOnCellRecorderChange();
     }
 
     @Override
@@ -177,14 +179,17 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         binding.btnStopAndGo.setOnClickListener(v -> {
             if(AppConstants.IS_COLLECTING) {
                 binding.cdMonitorInfosGeneral.setVisibility(View.GONE);
-                stopService();
                 mPresenter.getRadioManager().stopApi();
+                mPresenter.getCellRecorderManager().stopCellRecorder();
+                stopService();
                 AppConstants.IS_COLLECTING = false;
             } else {
                 Intent intentService = new Intent(getApplicationContext(), FMDService.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                     startForegroundService(intentService);
                 else startService(intentService);
+
+                mPresenter.getCellRecorderManager().startCellRecorder();
 
                 mPresenter.registerOnCellChange();
                 mPresenter.registerOnSignalChange();
@@ -267,7 +272,15 @@ public class MainActivity extends BaseActivity implements MainMvpView {
             binding.gvInfosCell.setAdapter(new GridCellInfoAdapter(getContext(), INFOS_CELL_4G, cell));
         else if (cell.getTech() == 5)
             binding.gvInfosCell.setAdapter(new GridCellInfoAdapter(getContext(), INFOS_CELL_5G, cell));
+    }
 
+    @Override
+    public void refreshInfos() {
+    }
+
+    @Override
+    public void setNbCellRecorder(Long nbCellRecorder) {
+        binding.txtNbCollect.setText(String.valueOf(nbCellRecorder));
     }
 
     @Override
@@ -392,6 +405,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                     new PermissionMgr().requestPermission(this);
                     if (new PermissionMgr().checkPermission(this)) {
                         setUp();
+                        hideFullScreenMessage();
                     }
                 }
                 return;

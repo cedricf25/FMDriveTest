@@ -208,7 +208,7 @@ public class MyTelephony implements IMyTelephony {
                     bandwidth.append(this.state.getCellBandwidths()[i] / 1000).append("+");
                 else bandwidth.append(this.state.getCellBandwidths()[i] / 1000);
             }
-            return bandwidth + " MHz";
+            return bandwidth.toString();
         } else return "-";
     }
 

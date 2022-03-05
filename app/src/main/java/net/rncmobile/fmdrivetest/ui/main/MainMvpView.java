@@ -19,4 +19,8 @@ public interface MainMvpView extends MvpView {
     void noGps();
 
     void refreshMonitor(IMyCell cell);
+
+    void refreshInfos();
+
+    void setNbCellRecorder(Long nbCellRecorder);
 }

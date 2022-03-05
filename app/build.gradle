@@ -39,11 +39,12 @@ android {
         versionProps.load(new FileInputStream(versionPropsFile))
         def value = 0
         def runTasks = gradle.startParameter.taskNames
-        if ('assemble' in runTasks || 'assembleRelease' in runTasks || ':app:assembleRelease' in runTasks || ':app:bundleRelease' in runTasks) {
+        if ('assemble' in runTasks || 'assembleRelease' in runTasks
+                || ':app:assembleRelease' in runTasks || ':app:assembleDebug' in runTasks || ':app:bundleRelease' in runTasks) {
             value = 1
         }
 
-        def versionMajor = 4
+        def versionMajor = 0
         def versionMinor = 0
         def versionPatch = versionProps['VERSION_PATCH'].toInteger() + value
         def versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1

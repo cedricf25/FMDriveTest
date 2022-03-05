@@ -18,10 +18,16 @@ package net.rncmobile.fmdrivetest.data.db;
 
 import net.rncmobile.fmdrivetest.data.db.model.CellRecorder;
 
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Observable;
+
 /**
  * Created by cedric_f25 25/12/17.
  */
 
 public interface DbHelper {
     long addCellRecorder(CellRecorder cellRecorder);
+
+    Observable<Long> getNbCellRecorder();
 }

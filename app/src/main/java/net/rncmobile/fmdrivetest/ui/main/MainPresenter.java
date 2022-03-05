@@ -30,6 +30,8 @@ import net.rncmobile.fmdrivetest.models.cells.IMyCell;
 import net.rncmobile.fmdrivetest.ui.base.BasePresenter;
 import net.rncmobile.fmdrivetest.utils.rx.SchedulerProvider;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -62,6 +64,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 
     @Override
     public void onViewPrepared() {
+        nbCollecte();
     }
 
     @Override
@@ -113,6 +116,18 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
+    public void registerOnCellRecorderChange() {
+        getCompositeDisposable().add(cellRecorderManager.registerOnCRInserted()
+                .subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui())
+                .subscribe((Boolean b) -> {
+                    if(isViewAttached()) {
+                        nbCollecte();
+                        getMvpView().refreshInfos();
+                    }
+                },(Throwable throwable) -> Log.d(TAG, "OnSignalChange: " + throwable.toString() + "\n" + throwable.getMessage())));
+    }
+
+    @Override
     public Boolean prefIsScreen() {
         return getDataManager().isScreen();
     }
@@ -135,5 +150,17 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     @Override
     public void setActiveSimsetActiveSim(String activeSim) {
         getDataManager().setActiveSim(activeSim);
+    }
+
+    @Override
+    public void nbCollecte() {
+        getCompositeDisposable().add(getDataManager()
+                .getNbCellRecorder()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe((Long cellRecorders) -> {
+                    if(isViewAttached())
+                        getMvpView().setNbCellRecorder(cellRecorders);
+                }, (Throwable throwable) -> Log.d(TAG, "Erreur onClickDataExport: " + throwable.toString())));
     }
 }

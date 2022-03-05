@@ -27,6 +27,8 @@ import net.rncmobile.fmdrivetest.di.ApplicationContext;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.rxjava3.core.Observable;
+
 /**
  * Created by cedric_f25 25/12/17.
  */
@@ -58,6 +60,11 @@ public class AppDataManager implements DataManager {
     @Override
     public long addCellRecorder(CellRecorder cellRecorder) {
         return mDbHelper.addCellRecorder(cellRecorder);
+    }
+
+    @Override
+    public Observable<Long> getNbCellRecorder() {
+        return mDbHelper.getNbCellRecorder();
     }
 
     //

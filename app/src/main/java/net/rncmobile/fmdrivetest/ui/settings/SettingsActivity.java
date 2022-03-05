@@ -58,4 +58,9 @@ public class SettingsActivity extends BaseActivity implements SettingsMvpView {
         mPresenter.onViewPrepared();
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

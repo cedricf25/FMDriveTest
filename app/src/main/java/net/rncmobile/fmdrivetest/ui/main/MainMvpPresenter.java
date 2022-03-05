@@ -31,6 +31,7 @@ public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V>
 
     void registerOnCellChange();
     void registerOnSignalChange();
+    void registerOnCellRecorderChange();
 
     Boolean prefIsScreen();
 
@@ -41,4 +42,5 @@ public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V>
     void setIsSartupSimChoice(boolean SartupSimChoice);
     void setActiveSimsetActiveSim(String activeSim);
 
+    void nbCollecte();
 }
