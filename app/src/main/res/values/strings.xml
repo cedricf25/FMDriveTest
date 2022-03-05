@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FMD</string>
+    <string name="mainActivityTitle">FMDrive Test</string>
+    <string name="action_settings">Paramètres</string>
+</resources>
