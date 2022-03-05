@@ -26,9 +26,17 @@ import net.rncmobile.fmdrivetest.ui.base.MvpView;
  */
 
 @PerActivity
-public interface MainMvpPresenter<V extends MainMvpView & MvpView> extends MvpPresenter<V> {
+public interface MainMvpPresenter<V extends MainMvpView> extends MvpPresenter<V> {
+    void onViewPrepared();
+
+    void registerOnCellChange();
+    void registerOnSignalChange();
 
     RadioManager getRadioManager();
     CellRecorderManager getCellRecorderManager();
+
+    Boolean prefIsSartupSimChoice();
+    void setIsSartupSimChoice(boolean SartupSimChoice);
+    void setActiveSimsetActiveSim(String activeSim);
 
 }

@@ -73,4 +73,14 @@ public class AppDataManager implements DataManager {
         mPreferencesHelper.setActiveSim(activeSim);
     }
 
+    @Override
+    public boolean isSartupSimChoice() {
+        return mPreferencesHelper.isSartupSimChoice();
+    }
+
+    @Override
+    public void setSartupSimChoice(boolean bool) {
+        mPreferencesHelper.setSartupSimChoice(bool);
+    }
+
 }

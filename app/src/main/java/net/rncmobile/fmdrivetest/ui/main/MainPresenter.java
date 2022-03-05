@@ -16,12 +16,17 @@
 package net.rncmobile.fmdrivetest.ui.main;
 
 import android.content.Context;
+import android.util.Log;
 
+import net.rncmobile.fmdrivetest.R;
 import net.rncmobile.fmdrivetest.data.DataManager;
 import net.rncmobile.fmdrivetest.di.ActivityContext;
 import net.rncmobile.fmdrivetest.di.ApplicationContext;
+import net.rncmobile.fmdrivetest.listeners.FusedLocationListener;
 import net.rncmobile.fmdrivetest.managers.CellRecorderManager;
 import net.rncmobile.fmdrivetest.managers.RadioManager;
+import net.rncmobile.fmdrivetest.models.MyTelephonyFactory;
+import net.rncmobile.fmdrivetest.models.cells.IMyCell;
 import net.rncmobile.fmdrivetest.ui.base.BasePresenter;
 import net.rncmobile.fmdrivetest.utils.rx.SchedulerProvider;
 
@@ -56,7 +61,74 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
+    public void onViewPrepared() {
+    }
+
+    @Override
+    public void registerOnCellChange() {
+        getCompositeDisposable().add(getRadioManager()
+                .registerOnCellChange()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe((IMyCell cell) -> {
+                    if(isViewAttached()) {
+                        if (MyTelephonyFactory.getInstance().get(context).isPlaneMode()) {
+                            getMvpView().displayFullScreenMessage(null, R.drawable.ic_airplanemode_active_black_24dp,
+                                    context.getString(R.string.planeModeTitle), context.getString(R.string.planeModeDesc));
+                            return;
+                        }
+                        if (!(new FusedLocationListener(context).isGpsEnabled())) {
+                            getMvpView().displayFullScreenMessage(null, R.drawable.ic_location_off_black_24dp,
+                                    context.getString(R.string.noGpsTitle), context.getString(R.string.noGpsnDesc));
+                            return;
+                        }
+                        if (cell.getLcid() <= 0) {
+                            getMvpView().displayFullScreenMessage(null, R.drawable.ic_signal_cellular_off_black_24dp,
+                                    context.getString(R.string.noSignalTitle), context.getString(R.string.noSignalDesc));
+
+                        } else
+                            getMvpView().hideFullScreenMessage();
+                    }
+                },(Throwable throwable) -> Log.d(TAG, throwable.toString())));
+    }
+
+    @Override
+    public void registerOnSignalChange() {
+        getCompositeDisposable().add(getRadioManager().registerOnSignalChange()
+                .subscribeOn(getSchedulerProvider().io()).observeOn(getSchedulerProvider().ui())
+                .subscribe((IMyCell cell) -> {
+                    if(isViewAttached()) {
+                        if (MyTelephonyFactory.getInstance().get(context).isPlaneMode()) {
+                            getMvpView().planeMode();
+                            return;
+                        }
+                        if (!(new FusedLocationListener(context).isGpsEnabled())) {
+                            getMvpView().noGps();
+                            return;
+                        }
+                        if (cell.getLcid() > 0) getMvpView().refreshMonitor(cell);
+                        else getMvpView().noCell();
+                    }
+                },(Throwable throwable) -> Log.d(TAG, "OnSignalChange: " + throwable.toString() + "\n" + throwable.getMessage())));
+    }
+
+    @Override
     public CellRecorderManager getCellRecorderManager() {
         return cellRecorderManager;
+    }
+
+    @Override
+    public Boolean prefIsSartupSimChoice() {
+        return getDataManager().isSartupSimChoice();
+    }
+
+    @Override
+    public void setIsSartupSimChoice(boolean isSartupSimChoice) {
+        getDataManager().setSartupSimChoice(isSartupSimChoice);
+    }
+
+    @Override
+    public void setActiveSimsetActiveSim(String activeSim) {
+        getDataManager().setActiveSim(activeSim);
     }
 }

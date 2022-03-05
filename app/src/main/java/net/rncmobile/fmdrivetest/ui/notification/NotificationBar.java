@@ -42,7 +42,7 @@ public class NotificationBar {
         return NotificationBar.instance;
     }
 
-    private static final int notifyID = 1;
+    private static final int notifyID = 18002;
 
     public void run(Context context) {
         try {
@@ -88,10 +88,7 @@ public class NotificationBar {
     public void refresh(Context context, IMyCell cell) {
         if (notificationBuilder != null && notification != null && mNotificationManager != null) {
             if (cell != null && cell.getLcid() > 0) {
-                int icNotification = R.drawable.ic_iti;
-
-                if (cell.isRightMaskFreeMobile())
-                    icNotification = R.drawable.ic_rp;
+                int icNotification = R.drawable.ic_album_white_24dp;
 
                 String contentTitle = "-";
                 String contentText = "-";
@@ -103,31 +100,7 @@ public class NotificationBar {
                             cell.getCid(), cell.getXac(), cell.getMainSignal());
                 } else {
                     if(cell.getFreq() != null && cell.isRightMaskFreeMobile()) {
-                        // Icon by Freq
-                        switch (cell.getFreq()) {
-                            case "900":
-                                icNotification = R.drawable.ic_rp_900;
-                                break;
-                            case "2100":
-                                icNotification = R.drawable.ic_rp_2100;
-                                break;
-                            case "700":
-                                icNotification = R.drawable.ic_rp_700;
-                                break;
-                            case "800":
-                                icNotification = R.drawable.ic_rp_800;
-                                break;
-                            case "1800":
-                                icNotification = R.drawable.ic_rp_1800;
-                                break;
-                            case "2600":
-                                icNotification = R.drawable.ic_rp_2600;
-                                break;
-                        }
-/*
-                        if (!cell.isAuthorizedNetwork())
-                            icNotification = R.drawable.ic_iti;
-*/
+
                         if (cell.getTech() == 2)
                             contentTitle = context.getString(R.string.notifContentTitle2G,
                                     cell.getCid(), cell.getXac(), cell.getMainSignal());

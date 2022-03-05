@@ -46,4 +46,14 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setActiveSim(String activeSim) {
         mPrefs.edit().putString("nb_sim", activeSim).apply();
     }
+
+    @Override
+    public boolean isSartupSimChoice() {
+        return mPrefs.getBoolean("startupSimChoice", false);
+    }
+
+    @Override
+    public void setSartupSimChoice(boolean bool) {
+        mPrefs.edit().putBoolean("startupSimChoice", bool).apply();
+    }
 }

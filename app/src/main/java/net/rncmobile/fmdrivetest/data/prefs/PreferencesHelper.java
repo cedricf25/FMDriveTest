@@ -22,4 +22,7 @@ package net.rncmobile.fmdrivetest.data.prefs;
 public interface PreferencesHelper {
     int getActiveSim();
     void setActiveSim(String activeSim);
+
+    boolean isSartupSimChoice();
+    void setSartupSimChoice(boolean bool);
 }

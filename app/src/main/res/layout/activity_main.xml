@@ -20,6 +20,174 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/cd_monitor_infos_general"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
+            android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_operator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text=""
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/txt_ope_tech"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text=""
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/txt_freq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_mcc_mnc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/txt_sect"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/txt_nsa"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="" />
+
+                    <ImageView
+                        android:id="@+id/img_pause"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:text="" />
+
+                </LinearLayout>
+
+                <GridView
+                    android:id="@+id/gv_infos_cell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numColumns="2"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbars="none" />
+
+            </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_agreg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="3dp"
+            android:text="Agreg"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnStopAndGo"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Démarrer la collecte"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyt_fullscreen_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/img_fullscreen_message"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_iconeattentionrnc" />
+
+        <TextView
+            android:id="@+id/txt_fullscreen_message_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Un probleme s'est produit"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/ColorGrey"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/txt_fullscreen_message_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Un probleme s'est produit"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:visibility="gone"
+            android:textColor="@color/ColorGrey" />
+
+        <Button
+            android:id="@+id/btn_permission_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="demander la permission"
+            android:height="50dp"
+            android:backgroundTint="@color/ColorGreen"/>
+
+        <Button
+            android:id="@+id/btn_permission_nok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="quitter"
+            android:height="50dp"
+            android:backgroundTint="@color/ColorRed"/>
+
+    </LinearLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

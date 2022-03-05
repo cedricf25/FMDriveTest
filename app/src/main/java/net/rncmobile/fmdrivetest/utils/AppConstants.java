@@ -2,6 +2,8 @@ package net.rncmobile.fmdrivetest.utils;
 
 import net.rncmobile.fmdrivetest.models.cells.IMyCell;
 import net.rncmobile.fmdrivetest.models.cells.MyCell;
+import net.rncmobile.fmdrivetest.receiver.PlaneModeReceiver;
+import net.rncmobile.fmdrivetest.receiver.ScreenReceiver;
 import net.rncmobile.fmdrivetest.ui.main.MainActivity;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public final class AppConstants {
 
     public static final int API_STATUS_CODE_LOCAL_ERROR = 0;
 
-    public static boolean IS_APP_ALREADY_LAUNCH = false;
+    public static boolean IS_COLLECTING = false;
     public static boolean IS_APP_WAS_KILL = false;
     public static boolean DARK_MODE = false;
 
@@ -49,6 +51,8 @@ public final class AppConstants {
     public static String version = "";
 
     public static int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    public static PlaneModeReceiver planeModeReceiver;
+    public static ScreenReceiver screenReceiver;
     public static boolean screenOff = false;
     public static boolean cellRecorder = false;
 

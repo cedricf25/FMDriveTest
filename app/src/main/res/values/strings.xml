@@ -11,4 +11,46 @@
     <string name="notifContentTitle3G">3G %1$d:%2$d • %3$.0f dBm</string>
     <string name="notifContentTitle4G">4G %1$d:%2$d • %3$.0f dBm • SNR: %4$.1f dB</string>
     <string name="notifContentTitle45G">4G+5G %1$d:%2$d • %3$.0f dBm • SNR: %4$.1f dB</string>
+
+    <!-- Erreurs -->
+    <string name="generalError">Une erreur générale s\'est produite</string>
+    <string name="genericError">Une erreur s\'est produite</string>
+    <string name="notAuthorized">Non autorisé</string>
+    <string name="failed">Failed</string>
+    <string name="permissionError">Erreur de permission</string>
+    <string name="permissionErrorGPS">Vérifiez la permission de localisation</string>
+
+    <!-- RNC Mobile Erreurs -->
+    <string name="noSignalTitle">Oops! Aucun signal</string>
+    <string name="noSignalDesc">Es-tu sur la planète Terre ? ;)"</string>
+    <string name="planeModeTitle">Mode avion détecté.</string>
+    <string name="planeModeDesc">Vous devez activer le réseau mobile pour monitorer.</string>
+    <string name="noPermissionTitle">Permissions</string>
+    <string name="noPermissionDesc">Vous devez activer la permission de localisation pour monitorer.</string>
+    <string name="noGpsTitle">GPS Off</string>
+    <string name="noGpsnDesc">Vous devez activer la géolocalisation pour monitorer.</string>
+
+    <string name="simMessage">SIM %1$d (%2$s  + %3$s)</string>
+
+    <!-- Units -->
+    <string name="unit_dbm">%1$.0f dBm</string>
+    <string name="unit_db">%1$.1f dB</string>
+    <string name="unit_mhz">%1$d MHz</string>
+    <string name="unit_mo">%1$.2f Mo</string>
+    <string name="unit_mbps">%1$.2f Mbps</string>
+    <string name="unit_gbps">%1$.2f Gbps</string>
+    <string name="unit_kmh">%1$.1f km/h</string>
+    <string name="unit_m">%1$.1f m</string>
+    <string name="unit_km">%1$.1f km</string>
+    <string name="unit_ms">%1$.1f ms</string>
+    <string name="unit_s_short">%1$d s.</string>
+
+    <!-- RNC Mobile specific -->
+    <string name="concatMccMnc">%1$d %2$d</string>
+    <string name="concatMccMncOpe">%1$d %2$d (%3$d)</string>
+    <string name="concatRncCid">%1$d:%2$d</string>
+    <string name="sharpSupportNumber">#%1$d</string>
+    <string name="lacTac">LAC/TAC: %1$d</string>
+    <string name="rncenb">RNC/eNb: %1$d</string>
+    <string name="rncUnknown">RNC/EnB inconnu</string>
 </resources>
