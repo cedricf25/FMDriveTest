@@ -42,16 +42,13 @@ public class AppRadioManager implements RadioManager {
     @Inject
     PreferencesHelper mPrefs;
 
-    boolean isCrEnabled = false;
-
     private final Context context;
     private final PublishSubject<IMyCell> signalChangeSubject;
     private final PublishSubject<IMyCell> cellChangeSubject;
 
     private IMyCell currentCell;
-    //private List<ICell> lAci;
     private List<IMyCell> lAci;
-    private List<IMyCell> nCells;
+    //private List<IMyCell> nCells;
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRANCE);
     private final Handler handler;
@@ -100,9 +97,9 @@ public class AppRadioManager implements RadioManager {
         CompositeDisposable compositeDisposable = new CompositeDisposable();
 
         compositeDisposable.add(Observable.fromCallable(() -> {
+        Log.d(TAG, "Echentillion");
 
             try {
-                boolean autocomplete = false;
 
                 if (!AppConstants.DEBUG_MODE)
                     lAci = MyTelephonyFactory.getInstance().get(context).getCells(mPrefs.getActiveSim());
@@ -111,35 +108,16 @@ public class AppRadioManager implements RadioManager {
                     lAci.add(AppConstants.debugCell());
                     lAci.addAll(AppConstants.debugCellSecondary());
                 }
-                nCells = Collections.synchronizedList(new ArrayList<>());
+                //nCells = Collections.synchronizedList(new ArrayList<>());
 
                 if (lAci.size() == 0) signalChangeSubject.onNext(new MyCell());
 
                 for (IMyCell aci : lAci) {
                     if (aci.getICell().getSubscriptionId() == mPrefs.getActiveSim() || AppConstants.DEBUG_MODE) {
                         if (aci.getICell().getConnectionStatus() instanceof PrimaryConnection) {
-                            if (aci.getLcid() <= 1) {
-                                AppRadioManager.this.stopApi();
-                                cellChangeSubject.onNext(new MyCell());
-                                handler.postDelayed(updateCellAtFixedRate, 5000);
-                                return "";
-                            }
-
                             currentCell = aci;
 
                             signalChangeSubject.onNext(currentCell);
-                        } else nCells.add(aci);
-                    }
-                }
-
-                for (IMyCell cell : new ArrayList<>(nCells)) {
-                    if (currentCell != null && cell.getICell() != null && cell.getICell().getBand() != null
-                            && cell.getICell().getBand() != null && !(cell.getICell().getConnectionStatus() instanceof PrimaryConnection)) {
-
-                        if (cell.getTech() == 4) {
-
-                            // Aggregation via la méthode des PCI identique
-
                         }
                     }
                 }
@@ -162,17 +140,11 @@ public class AppRadioManager implements RadioManager {
         public void run() {
             try {
                 AppRadioAsyncTask();
-                if (!AppConstants.screenOff || isCrEnabled) handler.postDelayed(this, 3000);
-                else handler.postDelayed(this, 20000);
+                handler.postDelayed(this, 1000);
             } catch (Exception ignored) {
             }
         }
     };
-
-    @Override
-    public void setCrEnabled(boolean crEnabled) {
-        isCrEnabled = crEnabled;
-    }
 
     private void startApi() {
         handler.postDelayed(updateCellAtFixedRate, 100);
@@ -187,10 +159,5 @@ public class AppRadioManager implements RadioManager {
 
     public void stopApi() {
         handler.removeCallbacks(updateCellAtFixedRate);
-    }
-
-    @Override
-    public List<IMyCell> getnCells() {
-        return nCells;
     }
 }

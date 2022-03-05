@@ -66,7 +66,7 @@ public class AppCellRecorderManager implements CellRecorderManager, FusedLocatio
 
     @Override
     public void startCellRecorder() {
-        if(!AppConstants.cellRecorder) {
+        if (!AppConstants.cellRecorder) {
             AppConstants.cellRecorder = true;
             fusedLocationListener = new FusedLocationListener(context, 8, 8000);
 
@@ -74,7 +74,6 @@ public class AppCellRecorderManager implements CellRecorderManager, FusedLocatio
                 fusedLocationListener.setListener(this);
                 fusedLocationListener.startGps();
                 enabled = true;
-                radioManager.setCrEnabled(true);
 
                 radioManager.refreshCellChangeObservers();
 
@@ -90,7 +89,6 @@ public class AppCellRecorderManager implements CellRecorderManager, FusedLocatio
         if (fusedLocationListener != null) fusedLocationListener.stop();
 
         enabled = false;
-        if(radioManager != null) radioManager.setCrEnabled(false);
         crStatusSubject.onNext(enabled);
     }
 
@@ -113,25 +111,10 @@ public class AppCellRecorderManager implements CellRecorderManager, FusedLocatio
 
             if (enabled && radioManager.getCurrentCell() != null && radioManager.getCurrentCell().isAuthorizedNetwork() && location.getAccuracy() < 50.0) {
                 CellRecorder cellRecorder = new CellRecorder(radioManager.getCurrentCell(), location.getLatitude(), location.getLongitude(),
-                            location.getAltitude(), location.getAccuracy(), location.getSpeed(), batLevelPercent);
+                        location.getAltitude(), location.getAccuracy(), location.getSpeed(), batLevelPercent);
 
-                    int nbAggreg = 0;
-                    List<IMyCell> nCells = radioManager.getnCells();
-                    for (int i = 0; i < nCells.size(); i++) {
-                        if (nCells.get(i).getPxx() == radioManager.getCurrentCell().getPxx()) {
-                            if (nbAggreg == 0) cellRecorder.setAggreg1(nCells.get(i));
-                            if (nbAggreg == 1) cellRecorder.setAggreg2(nCells.get(i));
-                            if (nbAggreg == 2) cellRecorder.setAggreg3(nCells.get(i));
-
-                            nbAggreg++;
-                        }
-                    }
-
-                    AppConstants.cellRecorder = true;
-
-                    dataManager.addCellRecorder(cellRecorder);
-                    crStatusSubject.onNext(enabled);
-
+                dataManager.addCellRecorder(cellRecorder);
+                crStatusSubject.onNext(enabled);
             }
         } catch (Exception e) {
             AppConstants.cellRecorder = false;

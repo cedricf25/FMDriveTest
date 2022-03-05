@@ -113,6 +113,11 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
     }
 
     @Override
+    public Boolean prefIsScreen() {
+        return getDataManager().isScreen();
+    }
+
+    @Override
     public CellRecorderManager getCellRecorderManager() {
         return cellRecorderManager;
     }

@@ -18,6 +18,7 @@ package net.rncmobile.fmdrivetest.di.component;
 import net.rncmobile.fmdrivetest.ui.main.MainActivity;
 import net.rncmobile.fmdrivetest.di.PerActivity;
 import net.rncmobile.fmdrivetest.di.module.ActivityModule;
+import net.rncmobile.fmdrivetest.ui.settings.SettingsActivity;
 
 import dagger.Component;
 
@@ -28,6 +29,6 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
-
     void inject(MainActivity activity);
+    void inject(SettingsActivity activity);
 }

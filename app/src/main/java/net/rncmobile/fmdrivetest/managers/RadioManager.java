@@ -20,9 +20,6 @@ public interface RadioManager {
     void stopApi();
 
     IMyCell getCurrentCell();
-    List<IMyCell> getnCells();
-
-    void setCrEnabled(boolean crEnabled);
 
     void debugCellChange();
 }

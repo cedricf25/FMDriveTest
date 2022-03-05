@@ -56,4 +56,22 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setSartupSimChoice(boolean bool) {
         mPrefs.edit().putBoolean("startupSimChoice", bool).apply();
     }
+
+    @Override
+    public boolean isScreen() {
+        return mPrefs.getBoolean("screen", false);
+    }
+    @Override
+    public void setScreen(boolean screen) {
+        mPrefs.edit().putBoolean("screen", screen).apply();
+    }
+
+    @Override
+    public String getServeur() {
+        return mPrefs.getString("serveur", "-");
+    }
+    @Override
+    public void setServeur(String pseudo) {
+        mPrefs.edit().putString("serveur", pseudo).apply();
+    }
 }

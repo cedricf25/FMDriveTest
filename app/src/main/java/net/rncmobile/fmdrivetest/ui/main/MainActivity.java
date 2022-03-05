@@ -28,6 +28,7 @@ import net.rncmobile.fmdrivetest.receiver.ScreenReceiver;
 import net.rncmobile.fmdrivetest.services.FMDService;
 import net.rncmobile.fmdrivetest.ui.adapters.GridCellInfoAdapter;
 import net.rncmobile.fmdrivetest.ui.base.BaseActivity;
+import net.rncmobile.fmdrivetest.ui.settings.SettingsActivity;
 import net.rncmobile.fmdrivetest.utils.AppConstants;
 import net.rncmobile.fmdrivetest.utils.PermissionMgr;
 import net.rncmobile.fmdrivetest.utils.Utils;
@@ -83,6 +84,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         getActivityComponent().inject(this);
 
         mPresenter.onAttach(this);
+
+        if (mPresenter != null && mPresenter.prefIsScreen())
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.mainActivityTitle);
@@ -211,7 +215,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         binding.txtMccMnc.setText(cell.getMcc() + "" + cell.getMncOpe() + " (" + cell.getMnc() + ")");
         binding.txtFreq.setText(getString(R.string.unit_mhz, Integer.parseInt(cell.getFreq())));
 
-        binding.txtSect.setText("Sx");
+        binding.txtSect.setText("Secteur " + cell.getSect());
 
         if(MyTelephonyFactory.getInstance().get(getContext()).isNrAvailable()) {
             binding.txtNsa.setVisibility(View.VISIBLE);
@@ -291,7 +295,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            startActivity(SettingsActivity.getStartIntent(MainActivity.this));
         }
 
         return super.onOptionsItemSelected(item);

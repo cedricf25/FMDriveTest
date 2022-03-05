@@ -10,6 +10,9 @@ import net.rncmobile.fmdrivetest.di.PerActivity;
 import net.rncmobile.fmdrivetest.ui.main.MainMvpPresenter;
 import net.rncmobile.fmdrivetest.ui.main.MainMvpView;
 import net.rncmobile.fmdrivetest.ui.main.MainPresenter;
+import net.rncmobile.fmdrivetest.ui.settings.SettingsMvpPresenter;
+import net.rncmobile.fmdrivetest.ui.settings.SettingsMvpView;
+import net.rncmobile.fmdrivetest.ui.settings.SettingsPresenter;
 import net.rncmobile.fmdrivetest.utils.rx.AppSchedulerProvider;
 import net.rncmobile.fmdrivetest.utils.rx.SchedulerProvider;
 import java.util.ArrayList;
@@ -51,6 +54,13 @@ public class ActivityModule {
     @PerActivity
     MainMvpPresenter<MainMvpView> provideMainPresenter(
             MainPresenter<MainMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    SettingsMvpPresenter<SettingsMvpView> provideSettingsPresenter(
+            SettingsPresenter<SettingsMvpView> presenter) {
         return presenter;
     }
 

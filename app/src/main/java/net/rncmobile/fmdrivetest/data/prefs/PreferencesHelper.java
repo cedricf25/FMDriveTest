@@ -25,4 +25,10 @@ public interface PreferencesHelper {
 
     boolean isSartupSimChoice();
     void setSartupSimChoice(boolean bool);
+
+    boolean isScreen();
+    void setScreen(boolean screen);
+
+    String getServeur();
+    void setServeur(String serveur);
 }

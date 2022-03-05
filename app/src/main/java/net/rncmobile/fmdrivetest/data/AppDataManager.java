@@ -83,4 +83,23 @@ public class AppDataManager implements DataManager {
         mPreferencesHelper.setSartupSimChoice(bool);
     }
 
+    @Override
+    public boolean isScreen() {
+        return mPreferencesHelper.isScreen();
+    }
+
+    @Override
+    public void setScreen(boolean screen) {
+        mPreferencesHelper.setScreen(screen);
+    }
+
+    @Override
+    public String getServeur() {
+        return mPreferencesHelper.getServeur();
+    }
+
+    @Override
+    public void setServeur(String serveur) {
+        mPreferencesHelper.setServeur(serveur);
+    }
 }

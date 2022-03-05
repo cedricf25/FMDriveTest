@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="FMDrive Test - Préférences"
+        android:key="pref_key_storage_settings">
+
+        <CheckBoxPreference
+            android:title="Ecran toujours allumé"
+            android:key="screen"
+            android:defaultValue="true"
+            android:summary="Garde l'ecran allumé">
+        </CheckBoxPreference>
+
+        <ListPreference
+            android:title="Sim à activer"
+            android:key="nb_sim"
+            android:entries="@array/nb_sim"
+            android:defaultValue="1"
+            android:summary="Sim X activée">
+        </ListPreference>
+
+        <EditTextPreference
+            android:id="@android:id/edit"
+            android:title="Serveur"
+            android:key="serveur"
+            android:digits="qwertyuiopasdfghjklzxcvbnm_-+:@/ 1234567890 QWERTYUIOPASDFGHJKLZXCVBNM"
+            android:summary="Serveur">
+        </EditTextPreference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
